@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- *main: this is a function
+ *main - this is a function
  *Return: return 0
  */
 int main(void)
@@ -16,19 +16,15 @@ int main(void)
 		printf("#cisfun$ ");
 		count = getline(&buffer, &n, stdin);
 		if (count == -1)
-		{
 			_perror("getline Error", buffer);
-		}
 
 		if ((buffer[count - 1]) == '\n')
-		{
 			(buffer[count - 1]) = '\0';
-		}
+
 		pid = fork();
 		if (pid == -1)
-		{
 			_perror("fork Error", buffer);
-		}
+
 		else if (pid == 0)
 		{
 			str = strtok(buffer, " ");
@@ -39,14 +35,11 @@ int main(void)
 			}
 
 			if (execve(str2[0], str2, NULL) == -1)
-			{
 				_perror("./shell", buffer);
-			}
+
 		}
 		else
-		{
 			wait(NULL);
-		}
 	}
 
 	free(buffer);
