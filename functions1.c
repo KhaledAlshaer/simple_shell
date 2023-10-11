@@ -13,14 +13,18 @@ void _perror(char *err_msg, char *free_me)
 	exit(1);
 }
 
-/***/
+/**
+ * env- print environments
+ * Return: Nothing
+*/
 
 extern char **environ;
 
 void _env(void)
 {
 	char **envs = environ;
-	for (;*envs != NULL; envs++)
+
+	for (; *envs != NULL; envs++)
 	{
 		printf("%s\n", *envs);
 	}
