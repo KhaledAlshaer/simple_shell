@@ -1,38 +1,44 @@
 #include "main.h"
 
 /**
- * main- this is a function
- * Return: return 0
+ * main- entry point
+ * Return: Nothing
 */
+
 int main(void)
 {
-	pid_t pid;
+	pid_t fork_pid;
+	char *buffer = NULL, **str;
 	size_t n = 0;
-	char *buffer = NULL;
-	int count = 0;
+	int len;
 
 	while (1)
 	{
-		printf("#cisfun$ ");
-		count = getline(&buffer, &n, stdin);
-		if (count == -1)
-			_perror("getline Error", buffer);
+		write(1, "#cisfun$ ", 9);
 
-		if ((buffer[count - 1]) == '\n')
-			(buffer[count - 1]) = '\0';
+		len = getline(&buffer, &n, stdin);
 
-		pid = fork();
-		if (pid == -1)
-			_perror("fork Error", buffer);
+		if (len == -1)
+			_perror("Error getline!", buffer);
 
-		else if (pid == 0)
+		if (buffer[len - 1] == '\n')
+			buffer[len - 1] = '\0';
+
+		if (_strcmp(buffer, "exit") == 0)
+			break;
+		else if (_strcmp(buffer, "env") == 0)
+			_env();
+
+		str = _split(buffer);
+
+		if (access(*str[0], F_OK) == 0)
+			if (access(*str[0], X_OK) == 0)
+				_exec(str);
+		else if (path(str[0]) == 0)
 		{
-			child0(buffer);
+			_exec(str);
 		}
-		else
-			wait(NULL);
 	}
-
 	free(buffer);
 	return (0);
 }

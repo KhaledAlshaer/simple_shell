@@ -12,7 +12,7 @@ void _perror(char *err_msg, char *free_me);
 int _strlen(char *str);
 char *_concat_with_slash(char *str1, char *str2);
 int _strcmp(char *str1, char *str2);
-char **_split(char *buffer);
+
 
 void child(char *buffer);
 void _env(void);

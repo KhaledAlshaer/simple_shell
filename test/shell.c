@@ -36,7 +36,7 @@ int main(void)
 
 		if (fork_pid == 0)
 		{
-			child3(buffer);
+			child(buffer);
 		}
 		else
 		{
