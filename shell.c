@@ -1,14 +1,14 @@
 #include "main.h"
 
 /**
- *main - this is a function
- *Return: return 0
- */
+ * main- this is a function
+ * Return: return 0
+*/
 int main(void)
 {
 	pid_t pid;
-	size_t n = 0, i = 0;
-	char *buffer = NULL, *str, *str2[1024];
+	size_t n = 0;
+	char *buffer = NULL;
 	int count = 0;
 
 	while (1)
@@ -27,16 +27,7 @@ int main(void)
 
 		else if (pid == 0)
 		{
-			str = strtok(buffer, " ");
-			while (str)
-			{
-				str2[i++] = str;
-				str = strtok(NULL, " ");
-			}
-
-			if (execve(str2[0], str2, NULL) == -1)
-				_perror("./shell", buffer);
-
+			child0(buffer);
 		}
 		else
 			wait(NULL);

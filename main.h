@@ -8,5 +8,12 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 
+void _perror(char *err_msg, char *free_me);
+int _strlen(char *str);
+char *_concat_with_slash(char *str1, char *str2);
+int _strcmp(char *str1, char *str2);
+void child0(char *buffer);
+void child3(char *buffer);
+void _env(void);
 
 #endif
