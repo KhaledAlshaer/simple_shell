@@ -7,37 +7,32 @@
 
 int main(void)
 {
-	pid_t fork_pid;
-	char *buffer = NULL, **str;
+	char *buffer = NULL, **args;
 	size_t n = 0;
 	int len;
 
 	while (1)
 	{
-		write(1, "#cisfun$ ", 9);
+		_puts("#cisfun$ ");
 
 		len = getline(&buffer, &n, stdin);
-
 		if (len == -1)
 			_perror("Error getline!", buffer);
 
 		if (buffer[len - 1] == '\n')
 			buffer[len - 1] = '\0';
 
-		if (_strcmp(buffer, "exit") == 0)
+		args = _split(buffer, " \t");
+
+		if (_strcmp(args[0], "exit\n") == 0)
 			break;
-		else if (_strcmp(buffer, "env") == 0)
+		else if (_strcmp(args[0], "env\n") == 0)
 			_env();
 
-		str = _split(buffer);
-
-		if (access(*str[0], F_OK) == 0)
-			if (access(*str[0], X_OK) == 0)
-				_exec(str);
-		else if (path(str[0]) == 0)
-		{
-			_exec(str);
-		}
+		if (access(args[0], F_OK) == 0 && access(args[0], X_OK) == 0)
+			_exec(args);
+		else
+			_path_then_exec(args);
 	}
 	free(buffer);
 	return (0);
