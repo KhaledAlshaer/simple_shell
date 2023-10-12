@@ -10,6 +10,7 @@
 #include <sys/types.h>
 
 
+
 int _putchar(char c);
 int _puts(char *str);
 int _strlen(char *str);
@@ -20,14 +21,17 @@ char *_strdup(char *str);
 char **_split(char *buffer, char *delim);
 
 
+
 extern char **environ;
-
-void _perror(char *err_msg, char *free_me);
-void _env(void);
-
 
 void _exec(char **args);
 void _path_then_exec(char **args);
+void _perror(char *err_msg, char *free_me);
+void _env(void);
+
+void _is_interactive(void);
+
+
 
 
 #endif

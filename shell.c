@@ -13,7 +13,7 @@ int main(void)
 
 	while (1)
 	{
-		_puts("#cisfun$ ");
+		_is_interactive();
 
 		len = getline(&buffer, &n, stdin);
 		if (len == -1)
