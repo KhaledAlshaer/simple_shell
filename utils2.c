@@ -81,3 +81,30 @@ char **_split(char *buffer, char *delim)
 	res[i] = NULL;
 	return (res);
 }
+
+/**
+ * _realloc- realloc built-in
+ * @buf: the old buffer
+ * @new_len: the new length
+ * Return: 0 for success, -1 failure
+*/
+
+ssize_t _realloc(char **buf, int new_len)
+{
+	char *new_buf;
+
+	if (buf == NULL || !new_len)
+		return (-1);
+
+	new_buf = malloc(new_len);
+
+	if (new_buf == NULL)
+	{
+		free(*buf);
+		return(-1);
+	}
+
+	*buf = new_buf;
+
+	return (0);
+}
