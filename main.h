@@ -32,7 +32,8 @@ void _env(void);
 void _is_interactive(void);
 
 
-size_t _getline(char **buf, int *n, FILE *stream);
+ssize_t _getline_syscall(char **buf, int *n, FILE *stream);
+
 
 
 #endif

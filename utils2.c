@@ -101,7 +101,7 @@ ssize_t _realloc(char **buf, int new_len)
 	if (new_buf == NULL)
 	{
 		free(*buf);
-		return(-1);
+		return (-1);
 	}
 
 	*buf = new_buf;
