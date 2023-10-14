@@ -9,6 +9,8 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 
+#define DEF_BUF_SIZE 128
+extern char **environ;
 
 
 int _putchar(char c);
@@ -22,8 +24,6 @@ char **_split(char *buffer, char *delim);
 
 
 
-extern char **environ;
-
 void _exec(char **args);
 void _path_then_exec(char **args);
 void _perror(char *err_msg, char *free_me);
@@ -32,6 +32,7 @@ void _env(void);
 void _is_interactive(void);
 
 
+size_t _getline(char **buf, int *n, FILE *stream);
 
 
 #endif
