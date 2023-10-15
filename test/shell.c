@@ -7,42 +7,34 @@
 
 int main(void)
 {
-	pid_t fork_pid;
-	char *buffer = NULL;
+	char *buffer = NULL, **args;
 	size_t n = 0;
 	int len;
 
 	while (1)
 	{
-		printf(":) ");
+		_is_interactive();
 
 		len = getline(&buffer, &n, stdin);
-
 		if (len == -1)
 			_perror("Error getline!", buffer);
 
 		if (buffer[len - 1] == '\n')
 			buffer[len - 1] = '\0';
 
-		if (_strcmp(buffer, "exit") == 0)
+		args = _split(buffer, " \t");
+
+		if (_strcmp(args[0], "exit") == 0)
 			break;
-		else if (_strcmp(buffer, "env") == 0)
+		else if (_strcmp(args[0], "env") == 0)
 			_env();
 
-		fork_pid = fork();
-		if (fork_pid == -1)
-			_perror("Error fork!", buffer);
-
-
-		if (fork_pid == 0)
-		{
-			child(buffer);
-		}
+		if (access(args[0], F_OK) == 0 && access(args[0], X_OK) == 0)
+			_exec(args);
 		else
-		{
-			wait(NULL);
-		}
+			_path_then_exec(args);
 	}
+
 	free(buffer);
 	return (0);
 }

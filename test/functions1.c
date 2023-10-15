@@ -1,6 +1,70 @@
 #include "main.h"
 
 /**
+ * _exec - This is the function
+ * @str: this is a variable
+ * Return: returns 0
+*/
+void _exec(char **str)
+{
+	pid_t pid;
+
+	pid = fork();
+
+	if (pid == -1)
+		perror("Fork _exec Error!");
+
+	if (pid == 0)
+	{
+		if (execve(str[0], str, NULL) == -1)
+			perror("Execute Error!");
+	}
+	else
+	{
+		wait(NULL);
+	}
+}
+
+/**
+ * _path_then_exec- find path and exec
+ * @args: array of strings
+ * Return: Nothing
+*/
+
+void _path_then_exec(char **args)
+{
+	pid_t pid;
+	char *path, *current_path, *temp;
+	const char *env_key = "PATH";
+
+	pid = fork();
+
+	if (pid == -1)
+		perror("Fork _path_exec Error");
+
+	if (pid == 0)
+	{
+		path = getenv(env_key);
+		current_path = strtok(path, ":");
+		while (current_path)
+		{
+			temp = _concat_with_char(current_path, '/', args[0]);
+			if (access(temp, F_OK) == 0 && access(temp, X_OK) == 0)
+			{
+				args[0] = temp;
+				if (execve(args[0], args, NULL) == -1)
+					perror("./shell");
+			}
+			current_path = strtok(NULL, ":");
+			free(temp);
+		}
+		perror("./shell");
+	}
+	else
+		wait(NULL);
+}
+
+/**
  * _perror- perror implementation
  * @err_msg: error message
  * @free_me: buffer to free
@@ -14,11 +78,9 @@ void _perror(char *err_msg, char *free_me)
 }
 
 /**
- * env- print environments
+ * _env- print environments
  * Return: Nothing
 */
-
-extern char **environ;
 
 void _env(void)
 {
