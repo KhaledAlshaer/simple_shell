@@ -9,18 +9,16 @@
 
 int _strcmp(char *str1, char *str2)
 {
-	while (*str1 == *str2)
+	while (*str1 || *str2)
 	{
-		if (*str1 == '\0' && *str2 == '\0')
-		{
+		if (*str1 != *str2)
 			return (0);
-		}
 
 		str1++;
 		str2++;
 	}
 
-	return (*str1 - *str2);
+	return (1);
 }
 
 /**
@@ -91,8 +89,9 @@ char **_split(char *buffer, char *delim)
 /**
  * _realloc- realloc built-in
  * @buf: the old buffer
- * @new_len: the new length
- * Return: new_buf for success, NULL failure
+ * @new_size: the new length
+ * @old_size: the old length
+ * Return: new malloc with new size
 */
 
 void *_realloc(char *buf, int new_size, int old_size)
@@ -128,7 +127,7 @@ void *_realloc(char *buf, int new_size, int old_size)
 	{
 		for (i = 0; i < old_size; i++)
 			new[i] = old[i];
-		
+
 		free(buf);
 
 		for (i = old_size; i < new_size; i++)

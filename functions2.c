@@ -12,11 +12,11 @@ void _is_interactive(void)
 }
 
 /**
- * free_args- fre array of strings
+ * _free_args- fre array of strings
  * @args: arr of strings
 */
 
-void free_args(char **args)
+void _free_args(char **args)
 {
 	int i;
 
@@ -27,12 +27,12 @@ void free_args(char **args)
 }
 
 /**
- * eof_handle- handling ctrl+d and eof
+ * _eof_handle- handling ctrl+d and eof
  * @len: the res of getline
  * @buf: the buffer of getline
 */
 
-void eof_handle(int len, char *buf)
+void _eof_handle(int len, char *buf)
 {
 	(void)buf;
 	if (len == -1)

@@ -31,8 +31,8 @@ void _perror(char *err_msg, char *free_me);
 void _env(void);
 
 void _is_interactive(void);
-void free_args(char **args);
-void eof_handle(int len, char *buf);
+void _free_args(char **args);
+void _eof_handle(int len, char *buf);
 
 ssize_t _getline(char **buf, int *n, FILE *stream);
 
