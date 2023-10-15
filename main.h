@@ -21,7 +21,7 @@ char *_concat_with_char(char *str1, char mid_char, char *str2);
 int _strcmp(char *str1, char *str2);
 char *_strdup(char *str);
 char **_split(char *buffer, char *delim);
-ssize_t _realloc(char **buf, int new_len);
+void *_realloc(char *buf, int new_size, int old_size);
 
 
 void _exec(char **args);
@@ -32,7 +32,7 @@ void _env(void);
 void _is_interactive(void);
 
 
-ssize_t _getline_syscall(char **buf, int *n, FILE *stream);
+ssize_t _getline(char **buf, int *n, FILE *stream);
 
 
 

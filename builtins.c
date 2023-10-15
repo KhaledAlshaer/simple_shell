@@ -1,14 +1,14 @@
 #include "main.h"
 
 /**
- * _getline_syscall- getline implement
+ * _getline- getline implement
  * @buf: the buffer
  * @n: the lenght
  * @stream: the stream to read from
  * Return: len for success, -1 for failure
 */
 
-ssize_t _getline_syscall(char **buf, int *n, FILE *stream)
+ssize_t _getline(char **buf, int *n, FILE *stream)
 {
 	char c, *line, *new_line __attribute__((unused));
 	int len, i = 0;
@@ -32,7 +32,7 @@ ssize_t _getline_syscall(char **buf, int *n, FILE *stream)
 
 	while (1)
 	{
-		bytes_read = read(stream, &c, 1);
+		bytes_read = read(fileno(stream), &c, 1);
 
 		if (c == '\n' || bytes_read == 0)
 		{
@@ -52,8 +52,12 @@ ssize_t _getline_syscall(char **buf, int *n, FILE *stream)
 
 		if (i == len)
 		{
-			if (_realloc(&line, sizeof(char) * (len * 2)) == -1)
-				free(line), return (-1);
+			new_line = realloc(line, sizeof(char) * (len * 2));
+			if (new_line == NULL)
+			{
+				free(line);
+				return (-1);
+			}
 		}
 	}
 }

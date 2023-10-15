@@ -9,15 +9,18 @@
 
 int _strcmp(char *str1, char *str2)
 {
-	int i, res = 0;
-
-	for (i = 0; str1[i] != '\0'; i++)
+	while (*str1 == *str2)
 	{
-		if (str1[i] != str2[i])
-		res = -1;
+		if (*str1 == '\0' && *str2 == '\0')
+		{
+			return (0);
+		}
+
+		str1++;
+		str2++;
 	}
 
-	return (res);
+	return (*str1 - *str2);
 }
 
 /**
@@ -30,6 +33,9 @@ char *_strdup(char *str)
 {
 	int len = _strlen(str), i = 0;
 	char *res = malloc(sizeof(char) * len);
+
+	if (!str)
+		return (NULL);
 
 	if (res == NULL)
 		perror("strdup Error!"), exit(1);
@@ -86,25 +92,48 @@ char **_split(char *buffer, char *delim)
  * _realloc- realloc built-in
  * @buf: the old buffer
  * @new_len: the new length
- * Return: 0 for success, -1 failure
+ * Return: new_buf for success, NULL failure
 */
 
-ssize_t _realloc(char **buf, int new_len)
+void *_realloc(char *buf, int new_size, int old_size)
 {
-	char *new_buf;
+	char *new, *old;
+	int i;
 
-	if (buf == NULL || !new_len)
-		return (-1);
+	if (buf == NULL)
+		return (malloc(new_size));
 
-	new_buf = malloc(new_len);
+	if (new_size == old_size)
+		return (buf);
 
-	if (new_buf == NULL)
+	if (buf != NULL && new_size == 0)
 	{
-		free(*buf);
-		return (-1);
+		free(buf);
+		return (NULL);
 	}
 
-	*buf = new_buf;
+	new = malloc(new_size);
+	old = buf;
 
-	return (0);
+	if (new == NULL)
+		return (NULL);
+
+	if (new_size < old_size)
+	{
+		for (i = 0; i < new_size; i++)
+			new[i] = old[i];
+		free(buf);
+	}
+	else if (new_size > old_size)
+	{
+		for (i = 0; i < old_size; i++)
+			new[i] = old[i];
+		
+		free(buf);
+
+		for (i = old_size; i < new_size; i++)
+			new[i] = '\0';
+	}
+
+	return (new);
 }

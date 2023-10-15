@@ -24,9 +24,9 @@ int main(void)
 
 		args = _split(buffer, " \t");
 
-		if (_strcmp(args[0], "exit\n") == 0)
+		if (_strcmp(args[0], "exit") == 0)
 			break;
-		else if (_strcmp(args[0], "env\n") == 0)
+		else if (_strcmp(args[0], "env") == 0)
 			_env();
 
 		if (access(args[0], F_OK) == 0 && access(args[0], X_OK) == 0)
@@ -34,6 +34,7 @@ int main(void)
 		else
 			_path_then_exec(args);
 	}
+
 	free(buffer);
 	return (0);
 }
