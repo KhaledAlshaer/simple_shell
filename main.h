@@ -30,6 +30,7 @@ void _perror(char *err_msg, char *free_me);
 void _env(void);
 
 void _is_interactive(void);
+void free_args(char **args);
 
 
 ssize_t _getline(char **buf, int *n, FILE *stream);
