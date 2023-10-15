@@ -16,26 +16,30 @@ int main(void)
 		_is_interactive();
 
 		len = getline(&buffer, &n, stdin);
-		if (len == -1)
-			_perror("Error getline!", buffer);
-
-		if (buffer[len - 1] == '\n')
+		
+		eof_handle(len, buffer);
+		
+		if (len > 0 && buffer[len - 1] == '\n')
 			buffer[len - 1] = '\0';
 
 		args = _split(buffer, " \t");
 
-		if (_strcmp(args[0], "exit"))
-			break;
-		else if (_strcmp(args[0], "env"))
-			_env();
+		if (args && args[0])
+		{
+			if (_strcmp(args[0], "exit") == 1)
+				break;
+			else if (_strcmp(args[0], "env") == 1)
+				_env();
 
-		if (access(args[0], F_OK) == 0 && access(args[0], X_OK) == 0)
-			_exec(args);
-		else
-			_path_then_exec(args);
+			if (access(args[0], F_OK) == 0 && access(args[0], X_OK) == 0)
+				_exec(args);
+			else
+				_path_then_exec(args);
+		}
+
+		free_args(args);
 	}
 
-	free_args(args);
 	free(buffer);
 	return (0);
 }

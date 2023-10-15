@@ -5,6 +5,7 @@
  * @str: this is a variable
  * Return: returns 0
 */
+
 void _exec(char **str)
 {
 	pid_t pid;
@@ -13,11 +14,13 @@ void _exec(char **str)
 
 	if (pid == -1)
 		perror("Fork _exec Error!");
-
-	if (pid == 0)
+	else if (pid == 0)
 	{
 		if (execve(str[0], str, NULL) == -1)
 			perror("Execute Error!");
+
+		exit(0);
+		
 	}
 	else
 	{
@@ -40,9 +43,11 @@ void _path_then_exec(char **args)
 	pid = fork();
 
 	if (pid == -1)
+	{
 		perror("Fork _path_exec Error");
-
-	if (pid == 0)
+		exit(0);
+	}
+	else if (pid == 0)
 	{
 		path = getenv(env_key);
 		current_path = strtok(path, ":");
@@ -54,6 +59,8 @@ void _path_then_exec(char **args)
 				args[0] = temp;
 				if (execve(args[0], args, NULL) == -1)
 					perror("./shell");
+
+				exit(0);
 			}
 			current_path = strtok(NULL, ":");
 			free(temp);
@@ -88,6 +95,7 @@ void _env(void)
 
 	for (; *envs != NULL; envs++)
 	{
-		printf("%s\n", *envs);
+		_puts(*envs);
+		_puts("\n");
 	}
 }

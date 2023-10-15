@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 
@@ -31,7 +32,7 @@ void _env(void);
 
 void _is_interactive(void);
 void free_args(char **args);
-
+void eof_handle(int len, char *buf);
 
 ssize_t _getline(char **buf, int *n, FILE *stream);
 
