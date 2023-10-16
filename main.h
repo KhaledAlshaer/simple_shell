@@ -22,7 +22,7 @@ char *_concat_with_char(char *str1, char mid_char, char *str2);
 int _strcmp(char *str1, char *str2);
 char *_strdup(char *str);
 char **_split(char *buffer, char *delim);
-void *_realloc(char *buf, int new_size, int old_size);
+char **_realloc(char **buf, int new_size, int old_size);
 
 
 void _exec(char **args);
@@ -32,6 +32,7 @@ void _env(void);
 
 void _is_interactive(void);
 void _free_args(char **args);
+void _perr_free2d_exit1(char *err_msg, char **free_me);
 void _eof_handle(int len, char *buf);
 
 ssize_t _getline(char **buf, int *n, FILE *stream);

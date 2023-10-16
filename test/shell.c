@@ -2,10 +2,10 @@
 
 /**
  * main- entry point
- * Return: Nothing
+ * Return: 0 when exit
 */
 
-int main(void)
+int main(int **argc, char *argv[])
 {
 	char *buffer = NULL, **args;
 	size_t n = 0;
