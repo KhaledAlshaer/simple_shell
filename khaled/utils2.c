@@ -16,7 +16,8 @@ int _strcmp(const char *str1, const char *str2)
 		return (0);
 	}
     
-	if (str1 == NULL || str2 == NULL) {
+	if (str1 == NULL || str2 == NULL)
+	{
 		return (-1);
 	}
 
@@ -77,7 +78,7 @@ char **_split(char *buffer, char *delim)
 	if (res == NULL)
 		perror("Malloc _split Error!"), exit(1);
 
-	str = _strtok(buffer, delim);
+	str = strtok(buffer, delim);
 	while (str)
 	{
 		if (i % 16 == 0)
@@ -92,7 +93,7 @@ char **_split(char *buffer, char *delim)
 			perror("_split malloc Error!"), exit(1);
 
 		i++;
-		str = _strtok(NULL, delim);
+		str = strtok(NULL, delim);
 	}
 
 	res[i] = NULL;
