@@ -34,19 +34,22 @@ char *_strtok(char *str, char *delim)
 	{
 		current_position = str;
 	}
-
-	while (current_position != NULL && *current_position != '\0')
+	else if (current_position == NULL)
 	{
-		while (is_delim(*current_position, delim))
-		{
-			current_position++;
-		}
-
-		if (val != NULL)
-		{
-			*current_position = '\0';
-			return (val);
-		}
+		return (NULL);
 	}
-	return(NULL);
+
+	 while (*current_position)
+	{
+		if (strchr(delim, *current_position) != NULL)
+	{
+		*current_position = '\0';
+		current_position++;
+		return (val);
+	}
+		current_position++;
+	}
+
+	 current_position = NULL;
+	 return (val);
 }
