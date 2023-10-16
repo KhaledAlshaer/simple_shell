@@ -2,47 +2,47 @@
 
 /**
  * main- entry point
- * Return: Nothing
+ * Return: 0 when exit
 */
 
-int main(void)
+int main(int **argc, char *argv[])
 {
-	pid_t fork_pid;
-	char *buffer = NULL;
+	char *buffer = NULL, **args;
 	size_t n = 0;
 	int len;
 
 	while (1)
 	{
-		printf(":) ");
+		_is_interactive();
 
 		len = getline(&buffer, &n, stdin);
 
-		if (len == -1)
-			_perror("Error getline!", buffer);
+		_eof_handle(len, buffer);
 
-		if (buffer[len - 1] == '\n')
+		if (len > 0 && buffer[len - 1] == '\n')
 			buffer[len - 1] = '\0';
 
-		if (_strcmp(buffer, "exit") == 0)
-			break;
-		else if (_strcmp(buffer, "env") == 0)
-			_env();
+		args = _split(buffer, " \t");
 
-		fork_pid = fork();
-		if (fork_pid == -1)
-			_perror("Error fork!", buffer);
-
-
-		if (fork_pid == 0)
+		if (args && args[0])
 		{
-			child(buffer);
+			if (_strcmp(args[0], "exit") == 1)
+			{
+				free(buffer);
+				_free_args(args);
+				exit(0);
+			}
+			else if (_strcmp(args[0], "env") == 1)
+				_env();
+			else if (access(args[0], F_OK) == 0 && access(args[0], X_OK) == 0)
+				_exec(args);
+			else
+				_path_then_exec(args);
 		}
-		else
-		{
-			wait(NULL);
-		}
+
+		_free_args(args);
 	}
+
 	free(buffer);
 	return (0);
 }

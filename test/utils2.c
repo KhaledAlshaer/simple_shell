@@ -57,33 +57,33 @@ char *_strdup(char *str)
 
 char **_split(char *buffer, char *delim)
 {
-	char **args = NULL, *str;
-	int i = 0, size = 16;
+	char **res = NULL, *str;
+	int i = 0;
 
-	args = (char **)malloc(sizeof(char *) * size);
-	if (args == NULL)
+	res = (char **)malloc(sizeof(char *) * 16);
+	if (res == NULL)
 		perror("Malloc _split Error!"), exit(1);
 
 	str = strtok(buffer, delim);
 	while (str)
 	{
-		if (i == size)
+		if (i % 16 == 0)
 		{
-			size += 16;
-			args = _realloc(args, (size * sizeof(char *)), (i * sizeof(char *)));
-			if (args == NULL)
-				_perr_free2d_exit1("_split _realloc Error!", args);
+			res = (char **)realloc(res, (i + 16) * sizeof(char *));
+			if (res == NULL)
+				perror("Realloc _split Error!"), exit(1);
 		}
 
-		args[i] = _strdup(str);
-		if (args[i] == NULL)
-			_perr_free2d_exit1("_split _strdup Error!", args);
+		res[i] = _strdup(str);
+		if (res[i] == NULL)
+			perror("_split malloc Error!"), exit(1);
+
 		i++;
 		str = strtok(NULL, delim);
 	}
 
-	args[i] = NULL;
-	return (args);
+	res[i] = NULL;
+	return (res);
 }
 
 /**
@@ -94,13 +94,13 @@ char **_split(char *buffer, char *delim)
  * Return: new malloc with new size
 */
 
-char **_realloc(char **buf, int new_size, int old_size)
+void *_realloc(char *buf, int new_size, int old_size)
 {
-	char **new, **old;
+	char *new, *old;
 	int i;
 
 	if (buf == NULL)
-		return ((char **)malloc(new_size * sizeof(char *)));
+		return (malloc(new_size));
 
 	if (new_size == old_size)
 		return (buf);
@@ -111,7 +111,7 @@ char **_realloc(char **buf, int new_size, int old_size)
 		return (NULL);
 	}
 
-	new = (char **)malloc(new_size * sizeof(char));
+	new = malloc(new_size);
 	old = buf;
 
 	if (new == NULL)
@@ -131,7 +131,7 @@ char **_realloc(char **buf, int new_size, int old_size)
 		free(buf);
 
 		for (i = old_size; i < new_size; i++)
-			new[i] = NULL;
+			new[i] = '\0';
 	}
 
 	return (new);

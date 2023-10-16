@@ -27,20 +27,6 @@ void _free_args(char **args)
 }
 
 /**
- * _perr_free2d_exit1-print err, free arrya of str and exit(1)
- * @err_msg: the error message
- * @free_me: the array of str
- * Return: Nothing
-*/
-
-void _perr_free2d_exit1(char *err_msg, char **free_me)
-{
-	perror(err_msg);
-	_free_args(free_me);
-	exit(1);
-}
-
-/**
  * _eof_handle- handling ctrl+d and eof
  * @len: the res of getline
  * @buf: the buffer of getline
