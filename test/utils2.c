@@ -49,6 +49,22 @@ char *_strdup(char *str)
 }
 
 /**
+ * _strlen_2d- the length of array of strings
+ * @str: the array of string
+ * Return: the length
+*/
+
+int _strlen_2d(char **str)
+{
+	int i = 0;
+
+	while (str[i] != NULL)
+		i++;
+
+	return (i);
+}
+
+/**
  * _split- SPlitting a string at a delim
  * @buffer: the string
  * @delim: the delimeter
@@ -57,33 +73,33 @@ char *_strdup(char *str)
 
 char **_split(char *buffer, char *delim)
 {
-	char **res = NULL, *str;
-	int i = 0;
+	char **args = NULL, *str;
+	int i = 0, size = 16;
 
-	res = (char **)malloc(sizeof(char *) * 16);
-	if (res == NULL)
+	args = (char **)malloc(sizeof(char *) * size);
+	if (args == NULL)
 		perror("Malloc _split Error!"), exit(1);
 
 	str = strtok(buffer, delim);
 	while (str)
 	{
-		if (i % 16 == 0)
+		if (i == size)
 		{
-			res = (char **)realloc(res, (i + 16) * sizeof(char *));
-			if (res == NULL)
-				perror("Realloc _split Error!"), exit(1);
+			size += 16;
+			args = _realloc(args, (size * sizeof(char *)), (i * sizeof(char *)));
+			if (args == NULL)
+				_perr_free2d_exit1("_split _realloc Error!", args);
 		}
 
-		res[i] = _strdup(str);
-		if (res[i] == NULL)
-			perror("_split malloc Error!"), exit(1);
-
+		args[i] = _strdup(str);
+		if (args[i] == NULL)
+			_perr_free2d_exit1("_split _strdup Error!", args);
 		i++;
 		str = strtok(NULL, delim);
 	}
 
-	res[i] = NULL;
-	return (res);
+	args[i] = NULL;
+	return (args);
 }
 
 /**
@@ -94,13 +110,13 @@ char **_split(char *buffer, char *delim)
  * Return: new malloc with new size
 */
 
-void *_realloc(char *buf, int new_size, int old_size)
+char **_realloc(char **buf, int new_size, int old_size)
 {
-	char *new, *old;
+	char **new, **old;
 	int i;
 
 	if (buf == NULL)
-		return (malloc(new_size));
+		return ((char **)malloc(new_size * sizeof(char *)));
 
 	if (new_size == old_size)
 		return (buf);
@@ -111,7 +127,7 @@ void *_realloc(char *buf, int new_size, int old_size)
 		return (NULL);
 	}
 
-	new = malloc(new_size);
+	new = (char **)malloc(new_size * sizeof(char));
 	old = buf;
 
 	if (new == NULL)
@@ -131,7 +147,7 @@ void *_realloc(char *buf, int new_size, int old_size)
 		free(buf);
 
 		for (i = old_size; i < new_size; i++)
-			new[i] = '\0';
+			new[i] = NULL;
 	}
 
 	return (new);

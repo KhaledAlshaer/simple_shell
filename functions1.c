@@ -21,7 +21,7 @@ void _exec(char **str)
 		if (execve(str[0], str, NULL) == -1)
 			perror("Execute Error!");
 
-		exit(0);
+		exit(1);
 	}
 	else
 	{
@@ -45,7 +45,7 @@ void _path_then_exec(char **args)
 	if (pid == -1)
 	{
 		perror("Fork _path_exec Error");
-		exit(0);
+		exit(1);
 	}
 	else if (pid == 0)
 	{
@@ -60,7 +60,7 @@ void _path_then_exec(char **args)
 				if (execve(args[0], args, NULL) == -1)
 				{
 					perror("./shell");
-					exit(0);
+					exit(1);
 				}
 				found = 1;
 				break;
@@ -70,7 +70,7 @@ void _path_then_exec(char **args)
 		}
 		if (!found)
 		{
-			perror(args[0]);
+			_perror(args[0], NULL);
 			exit(1);
 		}
 	}
@@ -84,11 +84,23 @@ void _path_then_exec(char **args)
  * @free_me: buffer to free
 */
 
-void _perror(char *err_msg, char *free_me)
+void _perror(char *command, char *free_me)
 {
-	perror(err_msg);
-	free(free_me);
-	exit(1);
+	if (isatty(STDIN_FILENO))
+	{
+		_puts("./hsh: ");
+		_puts(command);
+		_puts(": not found\n");
+	}
+	else
+	{
+		write(STDERR_FILENO, "./hsh: 1: ", 11);
+		write(STDERR_FILENO, command, _strlen(command));
+		write(STDERR_FILENO, ": not found\n", 12);
+	}
+
+	if (free_me)
+		free(free_me);
 }
 
 /**

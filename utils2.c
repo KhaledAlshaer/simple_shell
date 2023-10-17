@@ -49,6 +49,22 @@ char *_strdup(char *str)
 }
 
 /**
+ * _strlen_2d- the length of array of strings
+ * @str: the array of string
+ * Return: the length
+*/
+
+int _strlen_2d(char **str)
+{
+	int i = 0;
+
+	while (str[i] != NULL)
+		i++;
+
+	return (i);
+}
+
+/**
  * _split- SPlitting a string at a delim
  * @buffer: the string
  * @delim: the delimeter

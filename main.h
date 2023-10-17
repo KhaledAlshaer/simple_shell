@@ -18,12 +18,13 @@ int _putchar(char c);
 int _puts(char *str);
 int _strlen(char *str);
 char *_concat_with_char(char *str1, char mid_char, char *str2);
+int _atoi(char *num);
 
 int _strcmp(char *str1, char *str2);
 char *_strdup(char *str);
 char **_split(char *buffer, char *delim);
 char **_realloc(char **buf, int new_size, int old_size);
-
+int _strlen_2d(char **str);
 
 void _exec(char **args);
 void _path_then_exec(char **args);
@@ -34,9 +35,14 @@ void _is_interactive(void);
 void _free_args(char **args);
 void _perr_free2d_exit1(char *err_msg, char **free_me);
 void _eof_handle(int len, char *buf);
+void _exitt(int status);
+
+
+int interactive(void);
+int non_interactive(char *argv);
+
 
 ssize_t _getline(char **buf, int *n, FILE *stream);
-
 
 
 #endif

@@ -41,7 +41,7 @@ int _strlen(char *str)
 {
 	int i = 0;
 
-	while (*str)
+	while (*str != '\0')
 	{
 		i++;
 		str++;
@@ -74,4 +74,26 @@ char *_concat_with_char(char *str1, char mid_char, char *str2)
 	res[i] = '\0';
 
 	return (res);
+}
+
+/**
+ * _atoi: num with type str to type int
+ * @num: the string
+ * Return: number
+*/
+
+int _atoi(char *num)
+{
+	int i = 0, res = 0, sign = 1;
+
+	if (num[0] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+
+	for (; num[i] != '\0'; i++)
+		res = res * 10 + (num[i] - '0');
+
+	return (res * sign);
 }

@@ -59,3 +59,17 @@ void _eof_handle(int len, char *buf)
 		exit(0);
 	}
 }
+
+/**
+ * _exitt- advanced exit implement
+ * @args: the exit status
+ * Return: Nothing
+*/
+
+void _exitt(int status)
+{
+	if (status)
+		exit(status);
+
+	exit(0);
+}
