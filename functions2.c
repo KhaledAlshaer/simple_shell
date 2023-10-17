@@ -62,7 +62,7 @@ void _eof_handle(int len, char *buf)
 
 /**
  * _exitt- advanced exit implement
- * @args: the exit status
+ * @status: the exit status
  * Return: Nothing
 */
 

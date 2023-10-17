@@ -80,7 +80,7 @@ void _path_then_exec(char **args)
 
 /**
  * _perror- perror implementation
- * @err_msg: error message
+ * @command: the command line
  * @free_me: buffer to free
 */
 

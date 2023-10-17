@@ -77,7 +77,7 @@ char *_concat_with_char(char *str1, char mid_char, char *str2)
 }
 
 /**
- * _atoi: num with type str to type int
+ * _atoi- num with type str to type int
  * @num: the string
  * Return: number
 */
@@ -93,7 +93,12 @@ int _atoi(char *num)
 	}
 
 	for (; num[i] != '\0'; i++)
+	{
+		if (num[i] < '0' || num[i] > '9')
+			return (0);
+
 		res = res * 10 + (num[i] - '0');
+	}
 
 	return (res * sign);
 }

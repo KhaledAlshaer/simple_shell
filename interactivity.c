@@ -8,8 +8,7 @@
 int interactive(void)
 {
 	char *buffer = NULL, **args;
-	size_t n = 0;
-	int len, status = 0;
+	size_t n = 0, len, status = 0;
 
 	while (1)
 	{
