@@ -5,10 +5,10 @@
  *@str: this is a variable
  *Return: returns 0
 */
-char comments(char *str)
+char *comments(char *str)
 {
 	char *res = _strdup(str);
-	char comment_start = _strchr(str, '#');
+	char *comment_start = _strchr(str, '#');
 
 	if (comment_start != NULL)
 	{

@@ -23,6 +23,8 @@ int _strcmp(char *str1, char *str2);
 char *_strdup(char *str);
 char **_split(char *buffer, char *delim);
 char **_realloc(char **buf, int new_size, int old_size);
+char *_strchr(const char *str, int character);
+char *comments(char *str);
 
 
 void _exec(char **args);
