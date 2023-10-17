@@ -70,7 +70,7 @@ void _path_then_exec(char **args)
 		}
 		if (!found)
 		{
-			_perror(args[0], NULL);
+			perror(args[0]);
 			exit(1);
 		}
 	}
@@ -110,11 +110,11 @@ void _perror(char *command, char *free_me)
 
 void _env(void)
 {
-	char **envs = environ;
+	int i;
 
-	for (; *envs != NULL; envs++)
+	for (i = 0; environ[i] != NULL; i++)
 	{
-		_puts(*envs);
+		_puts(environ[i]);
 		_puts("\n");
 	}
 }

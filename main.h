@@ -13,7 +13,6 @@
 #define DEF_BUF_SIZE 128
 extern char **environ;
 
-
 int _putchar(char c);
 int _puts(char *str);
 int _strlen(char *str);
