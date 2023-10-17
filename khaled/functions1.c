@@ -5,6 +5,7 @@
  * @str: this is a variable
  * Return: returns 0
 */
+
 void _exec(char **str)
 {
 	pid_t pid;
@@ -12,12 +13,15 @@ void _exec(char **str)
 	pid = fork();
 
 	if (pid == -1)
+	{
 		perror("Fork _exec Error!");
-
-	if (pid == 0)
+	}
+	else if (pid == 0)
 	{
 		if (execve(str[0], str, NULL) == -1)
 			perror("Execute Error!");
+
+		exit(0);
 	}
 	else
 	{
@@ -33,16 +37,17 @@ void _exec(char **str)
 
 void _path_then_exec(char **args)
 {
-	pid_t pid;
+	pid_t pid = fork();
 	char *path, *current_path, *temp;
 	const char *env_key = "PATH";
-
-	pid = fork();
+	int found = 0;
 
 	if (pid == -1)
+	{
 		perror("Fork _path_exec Error");
-
-	if (pid == 0)
+		exit(0);
+	}
+	else if (pid == 0)
 	{
 		path = getenv(env_key);
 		current_path = strtok(path, ":");
@@ -53,12 +58,21 @@ void _path_then_exec(char **args)
 			{
 				args[0] = temp;
 				if (execve(args[0], args, NULL) == -1)
+				{
 					perror("./shell");
+					exit(0);
+				}
+				found = 1;
+				break;
 			}
 			current_path = strtok(NULL, ":");
 			free(temp);
 		}
-		perror("./shell");
+		if (!found)
+		{
+			perror(args[0]);
+			exit(1);
+		}
 	}
 	else
 		wait(NULL);
