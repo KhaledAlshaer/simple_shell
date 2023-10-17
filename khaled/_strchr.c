@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * - This is the function
- *@: this is a variable
- *@: this is a variable
+ **_strchr - This is the function
+ *@str: this is a variable
+ *@character: this is a variable
  *Return: returns 0
 */
 char *_strchr(const char *str, int character)
@@ -12,6 +12,13 @@ char *_strchr(const char *str, int character)
 	{
 		if (*str == character)
 		{
+			return ((char *)str);
+		}
+		else
+		{
+			str++;
 		}
 	}
+
+	return (NULL);
 }
