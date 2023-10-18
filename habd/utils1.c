@@ -6,11 +6,6 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
-/**
- * _puts- put string
- * @str: the string
- * Return: number of printed chars
-*/
 
 int _puts(char *str)
 {
