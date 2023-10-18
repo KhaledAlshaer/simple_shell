@@ -35,13 +35,6 @@ int _strlen(char *str)
 	return (i);
 }
 
-/**
- * _concat_with_char- concat two strings
- * @str1: the first string
- * @mid_char: the middle char
- * @str2: the second string
- * Return:the concatenated string
-*/
 
 char *_concat_with_char(char *str1, char mid_char, char *str2)
 {
