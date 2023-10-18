@@ -9,6 +9,7 @@
 void _exec(char **str)
 {
 	pid_t pid;
+	int status;
 
 	pid = fork();
 
@@ -23,10 +24,12 @@ void _exec(char **str)
 
 		exit(1);
 	}
-	else
+	else if (pid > 0)
 	{
-		wait(NULL);
+		wait(&status);
 	}
+	else
+		perror("Error:");
 }
 
 /**
@@ -40,7 +43,7 @@ void _path_then_exec(char **args)
 	pid_t pid = fork();
 	char *path, *current_path, *temp;
 	const char *env_key = "PATH";
-	int found = 0;
+	int found = 0, status;
 
 	if (pid == -1)
 	{
@@ -75,7 +78,7 @@ void _path_then_exec(char **args)
 		}
 	}
 	else
-		wait(NULL);
+		wait(&status);
 }
 
 /**
@@ -115,6 +118,6 @@ void _env(void)
 	for (i = 0; environ[i] != NULL; i++)
 	{
 		_puts(environ[i]);
-		_puts("\n");
+		_putchar('\n');
 	}
 }

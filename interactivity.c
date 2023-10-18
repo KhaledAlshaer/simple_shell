@@ -70,7 +70,7 @@ int non_interactive(char *argv)
 				status = _atoi(command[1]);
 
 			_free_args(command);
-			_exit(status);
+			_exitt(status);
 		}
 		else if (_strcmp(command[0], "env") == 1)
 			_env();
