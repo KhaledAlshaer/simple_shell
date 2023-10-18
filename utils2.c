@@ -80,7 +80,7 @@ char **_split(char *buffer, char *delim)
 	if (args == NULL)
 		perror("Malloc _split Error!"), exit(1);
 
-	str = strtok(buffer, delim);
+	str = _strtok(buffer, delim);
 	while (str)
 	{
 		if (i == size)
@@ -95,7 +95,7 @@ char **_split(char *buffer, char *delim)
 		if (args[i] == NULL)
 			_perr_free2d_exit1("_split _strdup Error!", args);
 		i++;
-		str = strtok(NULL, delim);
+		str = _strtok(NULL, delim);
 	}
 
 	args[i] = NULL;

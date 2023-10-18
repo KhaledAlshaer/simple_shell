@@ -53,7 +53,7 @@ void _path_then_exec(char **args)
 	else if (pid == 0)
 	{
 		path = getenv(env_key);
-		current_path = strtok(path, ":");
+		current_path = _strtok(path, ":");
 		while (current_path)
 		{
 			temp = _concat_with_char(current_path, '/', args[0]);
@@ -68,7 +68,7 @@ void _path_then_exec(char **args)
 				found = 1;
 				break;
 			}
-			current_path = strtok(NULL, ":");
+			current_path = _strtok(NULL, ":");
 			free(temp);
 		}
 		if (!found)
