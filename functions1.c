@@ -79,9 +79,6 @@ void _path_then_exec(char **args)
 	}
 	else
 		wait(&status);
-
-	if (!found)
-		free(temp);
 }
 
 /**

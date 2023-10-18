@@ -99,13 +99,6 @@ char **_split(char *buffer, char *delim)
 	}
 
 	args[i] = NULL;
-
-	if (i < size)
-	{
-		free(args[i]);
-		args[i] = NULL;
-	}
-
 	return (args);
 }
 
