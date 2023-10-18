@@ -1,10 +1,5 @@
 #include "main.h"
 
-/**
- * _putchar- putchar implementation
- * @c: the char
- * Return: 1 for success
-*/
 
 int _putchar(char c)
 {
