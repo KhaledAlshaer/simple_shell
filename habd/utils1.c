@@ -54,11 +54,6 @@ char *_concat_with_char(char *str1, char mid_char, char *str2)
 	return (res);
 }
 
-/**
- * _atoi- num with type str to type int
- * @num: the string
- * Return: number
-*/
 
 int _atoi(char *num)
 {
