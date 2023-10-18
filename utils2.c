@@ -30,7 +30,7 @@ int _strcmp(char *str1, char *str2)
 char *_strdup(char *str)
 {
 	int len = _strlen(str), i = 0;
-	char *res = malloc(sizeof(char) * len);
+	char *res = malloc(sizeof(char) * (len + 1));
 
 	if (!str)
 		return (NULL);
@@ -99,6 +99,13 @@ char **_split(char *buffer, char *delim)
 	}
 
 	args[i] = NULL;
+
+	if (i < size)
+	{
+		free(args[i]);
+		args[i] = NULL;
+	}
+
 	return (args);
 }
 

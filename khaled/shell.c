@@ -16,6 +16,14 @@ int main(void)
 		_is_interactive();
 
 		len = getline(&buffer, &n, stdin);
+		if (len == -1)
+		{
+			perror("Error getline");
+			free(buffer);
+			exit(1);
+		}
+
+		comments(buffer);
 
 		_eof_handle(len, buffer);
 
