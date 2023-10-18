@@ -21,11 +21,6 @@ int _puts(char *str)
 	return (count);
 }
 
-/**
- * _strlen- length of str
- * @str: the string
- * Return: Nothing
-*/
 
 int _strlen(char *str)
 {
