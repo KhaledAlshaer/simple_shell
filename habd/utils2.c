@@ -15,11 +15,6 @@ int _strcmp(char *str1, char *str2)
 	return (1);
 }
 
-/**
- * _strdup- copy string
- * @str: string to copy
- * Return: string result
-*/
 
 char *_strdup(char *str)
 {
