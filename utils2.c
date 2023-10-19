@@ -38,7 +38,7 @@ char *_strdup(char *str)
 	if (res == NULL)
 	{
 		perror("strdup Error!");
-		return(NULL);
+		return (NULL);
 	}
 
 	for (i = 0; str[i]; i++)
@@ -117,15 +117,15 @@ void *_realloc(void *ptr, int old_size, int new_size)
 	int i;
 	char *new_ptr;
 
-	if (new_size == 0) 
+	if (new_size == 0)
 	{
-	        free(ptr);
-        	return NULL;
+		free(ptr);
+		return (NULL);
 	}
 
-    	new_ptr = malloc(new_size);
-   	if (new_ptr == NULL)
-		return NULL;
+	new_ptr = malloc(new_size);
+	if (new_ptr == NULL)
+		return (NULL);
 
 	if (ptr != NULL && old_size < new_size)
 	{
@@ -134,5 +134,5 @@ void *_realloc(void *ptr, int old_size, int new_size)
 	}
 
 	free(ptr);
-	return new_ptr;
+	return (new_ptr);
 }

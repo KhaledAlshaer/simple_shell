@@ -35,7 +35,7 @@ void _exec(char **str)
 /**
  * _path_then_exec- find path and exec
  * @args: array of strings
- * Return: Nothinh	
+ * Return: Nothing
 */
 
 void _path_then_exec(char **args)
@@ -83,7 +83,6 @@ void _path_then_exec(char **args)
 
 /**
  * _perror- perror implementation
- * @command: the command line
  * @free_me: buffer to free
 */
 
