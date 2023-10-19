@@ -8,8 +8,7 @@
 int interactive(void)
 {
 	char *buffer = NULL, **args;
-	size_t n = 0;
-	int len, status = 0;
+	size_t n = 0, len, status = 0;
 
 	while (1)
 	{
@@ -71,7 +70,7 @@ int non_interactive(char *argv)
 				status = _atoi(command[1]);
 
 			_free_args(command);
-			_exit(status);
+			_exitt(status);
 		}
 		else if (_strcmp(command[0], "env") == 1)
 			_env();

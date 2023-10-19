@@ -18,9 +18,6 @@ int _puts(char *str);
 int _strlen(char *str);
 char *_concat_with_char(char *str1, char mid_char, char *str2);
 int _atoi(char *num);
-void comments(char *str);
-char *_strtok(char *str, char *delim);
-char *_strchr(const char *str, int character);
 
 int _strcmp(char *str1, char *str2);
 char *_strdup(char *str);

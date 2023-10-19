@@ -30,7 +30,6 @@ int _strcmp(char *str1, char *str2)
 char *_strdup(char *str)
 {
 	int len = _strlen(str), i;
-
 	char *res = malloc(sizeof(char) * (len + 1));
 
 	if (!str)
@@ -84,7 +83,7 @@ char **_split(char *buffer, char *delim)
 		return (NULL);
 	}
 
-	str = _strtok(buffer, delim);
+	str = strtok(buffer, delim);
 	while (str)
 	{
 		if (i == size)
@@ -98,7 +97,7 @@ char **_split(char *buffer, char *delim)
 		if (args[i] == NULL)
 			_perr_free2d_exit1("_split _strdup Error!", args);
 		i++;
-		str = _strtok(NULL, delim);
+		str = strtok(NULL, delim);
 	}
 
 	args[i] = NULL;
