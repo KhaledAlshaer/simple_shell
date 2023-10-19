@@ -18,6 +18,8 @@ int main(void)
 
 		_eof_handle(buffer, len);
 
+		comments(buffer);
+
 		if (len > 0 && buffer[len - 1] == '\n')
 			buffer[len - 1] = '\0';
 

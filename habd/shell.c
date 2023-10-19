@@ -2,28 +2,19 @@
 
 /**
  * main- entry point
- * Return: Nothing
+ * Return: 0 when exit
 */
 
 int main(void)
 {
 	char *buffer = NULL, **args;
-	size_t n = 0;
-	int len;
+	size_t n = 0, len, status = 0;
 
 	while (1)
 	{
 		_is_interactive();
 
 		len = getline(&buffer, &n, stdin);
-		if (len == -1)
-		{
-			perror("Error getline");
-			free(buffer);
-			exit(1);
-		}
-
-		comments(buffer);
 
 		_eof_handle(len, buffer);
 
@@ -36,9 +27,12 @@ int main(void)
 		{
 			if (_strcmp(args[0], "exit") == 1)
 			{
+				if (args[1] != NULL)
+					status = _atoi(args[1]);
+
 				free(buffer);
 				_free_args(args);
-				exit(0);
+				_exitt(status);
 			}
 			else if (_strcmp(args[0], "env") == 1)
 				_env();

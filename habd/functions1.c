@@ -35,50 +35,55 @@ void _exec(char **str)
 /**
  * _path_then_exec- find path and exec
  * @args: array of strings
- * Return: Nothinh	
+ * Return: Nothing
 */
 
 void _path_then_exec(char **args)
 {
-	pid_t pid = fork();
+	pid_t pid;
 	char *path, *current_path, *temp;
 	const char *env_key = "PATH";
 	int found = 0, status;
 
-	if (pid == -1)
-	{
-		perror("Fork _path_exec Error");
-		exit(1);
-	}
-	else if (pid == 0)
-	{
 		path = getenv(env_key);
-		current_path = _strtok(path, ":");
+		current_path = strtok(path, ":");
+
 		while (current_path)
 		{
 			temp = _concat_with_char(current_path, '/', args[0]);
 			if (access(temp, F_OK) == 0 && access(temp, X_OK) == 0)
 			{
-				args[0] = temp;
-				if (execve(args[0], args, NULL) == -1)
+				pid = fork();
+
+				if (pid == -1)
 				{
-					perror("./shell");
+					perror("Fork _path_exec Error");
 					exit(1);
 				}
-				found = 1;
-				break;
+				else if (pid == 0)
+				{
+					args[0] = temp;
+					if (execve(args[0], args, NULL) == -1)
+					{
+						perror("./shell");
+						exit(1);
+					}
+					found = 1;
+					break;
+				}
+				else
+				{
+					wait(&status);
+				}
 			}
-			current_path = _strtok(NULL, ":");
+			current_path = strtok(NULL, ":");
 			free(temp);
 		}
 		if (!found)
 		{
-			perror("./shell");
+			perror(args[0]);
 			exit(1);
 		}
-	}
-	else
-		wait(&status);
 }
 
 /**
@@ -87,10 +92,20 @@ void _path_then_exec(char **args)
  * @free_me: buffer to free
 */
 
-void _perror(char *free_me)
+void _perror(char *command, char *free_me)
 {
 	if (isatty(STDIN_FILENO))
+	{
 		_puts("./hsh: ");
+		_puts(command);
+		_puts(": not found\n");
+	}
+	else
+	{
+		write(STDERR_FILENO, "./hsh: 1: ", 11);
+		write(STDERR_FILENO, command, _strlen(command));
+		write(STDERR_FILENO, ": not found\n", 12);
+	}
 
 	if (free_me)
 		free(free_me);
