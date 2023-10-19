@@ -22,18 +22,18 @@ int _atoi(char *num);
 int _strcmp(char *str1, char *str2);
 char *_strdup(char *str);
 char **_split(char *buffer, char *delim);
-char **_realloc(char **buf, int new_size, int old_size);
+void *_realloc(void *ptr, int old_size, int new_size);
 int _strlen_2d(char **str);
 
 void _exec(char **args);
 void _path_then_exec(char **args);
-void _perror(char *err_msg, char *free_me);
+void _perror(char *free_me);
 void _env(void);
 
 void _is_interactive(void);
 void _free_args(char **args);
-void _perr_free2d_exit1(char *err_msg, char **free_me);
-void _eof_handle(int len, char *buf);
+char **_perr_free2d_exit1(char *err_msg, char **free_me);
+void _eof_handle(char *buf, int len);
 void _exitt(int status);
 
 

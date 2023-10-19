@@ -29,22 +29,22 @@ int _strcmp(char *str1, char *str2)
 
 char *_strdup(char *str)
 {
-	int len = _strlen(str), i = 0;
-	char *res = malloc(sizeof(char) * len);
+	int len = _strlen(str), i;
+	char *res = malloc(sizeof(char) * (len + 1));
 
 	if (!str)
 		return (NULL);
 
 	if (res == NULL)
-		perror("strdup Error!"), exit(1);
-
-	while (str[i])
 	{
-		res[i] = str[i];
-		i++;
+		perror("strdup Error!");
+		return(NULL);
 	}
 
-	res[i] = '\0';
+	for (i = 0; str[i]; i++)
+		res[i] = str[i];
+
+	res[len] = '\0';
 	return (res);
 }
 
@@ -74,19 +74,21 @@ int _strlen_2d(char **str)
 char **_split(char *buffer, char *delim)
 {
 	char **args = NULL, *str;
-	int i = 0, size = 16;
+	int i = 0, size = 4;
 
 	args = (char **)malloc(sizeof(char *) * size);
 	if (args == NULL)
-		perror("Malloc _split Error!"), exit(1);
+	{
+		perror("Malloc _split Error!");
+		return (NULL);
+	}
 
 	str = strtok(buffer, delim);
 	while (str)
 	{
 		if (i == size)
 		{
-			size += 16;
-			args = _realloc(args, (size * sizeof(char *)), (i * sizeof(char *)));
+			args = _realloc(args, size * sizeof(char *), (size + 16) * sizeof(char *));
 			if (args == NULL)
 				_perr_free2d_exit1("_split _realloc Error!", args);
 		}
@@ -104,51 +106,33 @@ char **_split(char *buffer, char *delim)
 
 /**
  * _realloc- realloc built-in
- * @buf: the old buffer
+ * @ptr: the old buffer
  * @new_size: the new length
  * @old_size: the old length
  * Return: new malloc with new size
 */
 
-char **_realloc(char **buf, int new_size, int old_size)
+void *_realloc(void *ptr, int old_size, int new_size)
 {
-	char **new, **old;
 	int i;
+	char *new_ptr;
 
-	if (buf == NULL)
-		return ((char **)malloc(new_size * sizeof(char *)));
-
-	if (new_size == old_size)
-		return (buf);
-
-	if (buf != NULL && new_size == 0)
+	if (new_size == 0) 
 	{
-		free(buf);
-		return (NULL);
+	        free(ptr);
+        	return NULL;
 	}
 
-	new = (char **)malloc(new_size * sizeof(char));
-	old = buf;
+    	new_ptr = malloc(new_size);
+   	if (new_ptr == NULL)
+		return NULL;
 
-	if (new == NULL)
-		return (NULL);
-
-	if (new_size < old_size)
-	{
-		for (i = 0; i < new_size; i++)
-			new[i] = old[i];
-		free(buf);
-	}
-	else if (new_size > old_size)
+	if (ptr != NULL && old_size < new_size)
 	{
 		for (i = 0; i < old_size; i++)
-			new[i] = old[i];
-
-		free(buf);
-
-		for (i = old_size; i < new_size; i++)
-			new[i] = NULL;
+			*((char *)new_ptr + i) = *((char *)ptr + i);
 	}
 
-	return (new);
+	free(ptr);
+	return new_ptr;
 }

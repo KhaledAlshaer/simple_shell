@@ -32,12 +32,11 @@ void _free_args(char **args)
  * @free_me: the array of str
  * Return: Nothing
 */
-
-void _perr_free2d_exit1(char *err_msg, char **free_me)
+char **_perr_free2d_exit1(char *err_msg, char **free_me)
 {
 	perror(err_msg);
 	_free_args(free_me);
-	exit(1);
+	return (NULL);
 }
 
 /**
@@ -46,7 +45,7 @@ void _perr_free2d_exit1(char *err_msg, char **free_me)
  * @buf: the buffer of getline
 */
 
-void _eof_handle(int len, char *buf)
+void _eof_handle(char *buf, int len)
 {
 	(void)buf;
 	if (len == -1)
@@ -56,6 +55,7 @@ void _eof_handle(int len, char *buf)
 			_puts("\n");
 			free(buf);
 		}
+
 		exit(0);
 	}
 }

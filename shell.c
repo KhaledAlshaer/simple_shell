@@ -16,7 +16,7 @@ int main(void)
 
 		len = getline(&buffer, &n, stdin);
 
-		_eof_handle(len, buffer);
+		_eof_handle(buffer, len);
 
 		if (len > 0 && buffer[len - 1] == '\n')
 			buffer[len - 1] = '\0';
