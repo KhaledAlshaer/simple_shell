@@ -8,28 +8,25 @@
 
 void _exec(char **str)
 {
-	pid_t pid;
-	int status;
-
-	pid = fork();
+	pid_t pid = fork();
 
 	if (pid == -1)
 	{
 		perror("Fork _exec Error!");
+		return;
 	}
 	else if (pid == 0)
 	{
 		if (execve(str[0], str, NULL) == -1)
 			perror("Execute Error!");
 
-		exit(1);
-	}
-	else if (pid > 0)
-	{
-		wait(&status);
+		exit(0);
 	}
 	else
-		perror("Error:");
+	{
+		wait(NULL);
+		return;
+	}
 }
 
 /**
@@ -68,8 +65,8 @@ void _path_then_exec(char **args)
 				found = 1;
 				break;
 			}
-			current_path = strtok(NULL, ":");
 			free(temp);
+			current_path = strtok(NULL, ":");
 		}
 		if (!found)
 		{
@@ -83,16 +80,28 @@ void _path_then_exec(char **args)
 
 /**
  * _perror- perror implementation
+ * @command: the command
  * @free_me: buffer to free
 */
 
-void _perror(char *free_me)
+void _perror (char *command, char *free_me)
 {
-	if (isatty(STDIN_FILENO))
-		_puts("./hsh: ");
+	        if (isatty(STDIN_FILENO))
+        {
+                _puts("./hsh: ");
+                _puts(command);
+                _puts(": not found\n");
+        }
+        else
+        {
+                write(STDERR_FILENO, "./hsh: 1: ", 11);
+                write(STDERR_FILENO, command, _strlen(command));
+                write(STDERR_FILENO, ": not found\n", 12);
+        }
 
-	if (free_me)
-		free(free_me);
+        if (free_me)
+                free(free_me);
+
 }
 
 /**

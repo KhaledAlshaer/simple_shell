@@ -74,7 +74,7 @@ int _strlen_2d(char **str)
 char **_split(char *buffer, char *delim)
 {
 	char **args = NULL, *str;
-	int i = 0, size = 4;
+	int i = 0, size = 10;
 
 	args = (char **)malloc(sizeof(char *) * size);
 	if (args == NULL)

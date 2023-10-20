@@ -5,10 +5,15 @@
  * Return: Nothing
 */
 
-void _is_interactive(void)
+int _is_interactive(void)
 {
 	if (isatty(STDIN_FILENO))
+	{
 		_puts("#cisfun$ ");
+		return (1);
+	}
+
+	return (0);
 }
 
 /**
@@ -47,15 +52,12 @@ char **_perr_free2d_exit1(char *err_msg, char **free_me)
 
 void _eof_handle(char *buf, int len)
 {
-	(void)buf;
 	if (len == -1)
 	{
 		if (isatty(STDIN_FILENO))
-		{
-			_puts("\n");
-			free(buf);
-		}
+			_putchar('\n');
 
+		free(buf);
 		exit(0);
 	}
 }
@@ -68,8 +70,8 @@ void _eof_handle(char *buf, int len)
 
 void _exitt(int status)
 {
-	if (status)
+	if (status != 0)
 		exit(status);
-
-	exit(0);
+	else
+		exit(0);
 }
