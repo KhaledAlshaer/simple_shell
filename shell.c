@@ -8,34 +8,27 @@
 int main(void)
 {
 	char *buffer = NULL, **args;
-	size_t n = 0, len, status = 0;
+	size_t n = 0, len;
+	int status;
 
 	while (1)
 	{
 		_is_interactive();
-
 		len = getline(&buffer, &n, stdin);
-
 		_eof_handle(buffer, len);
 
 		if (len > 0 && buffer[len - 1] == '\n')
 			buffer[len - 1] = '\0';
 
 		args = _split(buffer, " \t");
-
 		if (args && args[0])
 		{
 			if (_strcmp(args[0], "exit") == 1)
 			{
-				if (args[1])
+				if (args[1] != NULL)
 					status = _atoi(args[1]);
 				else
-				{
-					if (!isatty(STDIN_FILENO))
-						status = 2;
-					else if (isatty(STDIN_FILENO))
-						status = 0;
-				}
+					status = _status();
 
 				free(buffer);
 				_free_args(args);

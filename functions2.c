@@ -61,3 +61,16 @@ void _eof_handle(char *buf, int len)
 		exit(0);
 	}
 }
+
+/**
+ * _status- handle status for erro
+ * Return: status handled
+*/
+
+int _status(void)
+{
+	if (isatty(STDIN_FILENO))
+		return (0);
+
+	return (2);
+}
