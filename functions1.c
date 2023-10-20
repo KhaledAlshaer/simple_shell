@@ -84,24 +84,23 @@ void _path_then_exec(char **args)
  * @free_me: buffer to free
 */
 
-void _perror (char *command, char *free_me)
+void _perror(char *command, char *free_me)
 {
-	        if (isatty(STDIN_FILENO))
-        {
-                _puts("./hsh: ");
-                _puts(command);
-                _puts(": not found\n");
-        }
-        else
-        {
-                write(STDERR_FILENO, "./hsh: 1: ", 11);
-                write(STDERR_FILENO, command, _strlen(command));
-                write(STDERR_FILENO, ": not found\n", 12);
-        }
+	if (isatty(STDIN_FILENO))
+	{
+		_puts("./hsh: ");
+		_puts(command);
+		_puts(": not found\n");
+	}
+	else
+	{
+		write(STDERR_FILENO, "./hsh: 1: ", 11);
+		write(STDERR_FILENO, command, _strlen(command));
+		write(STDERR_FILENO, ": not found\n", 12);
+	}
 
-        if (free_me)
-                free(free_me);
-
+	if (free_me)
+		free(free_me);
 }
 
 /**

@@ -33,8 +33,7 @@ void _env(void);
 int _is_interactive(void);
 void _free_args(char **args);
 char **_perr_free2d_exit1(char *err_msg, char **free_me);
-void _eof_handle(char *buf, int len);
-void _exitt(int status);
+void _eof_handle(char *biuf, int len);
 
 
 int interactive(void);

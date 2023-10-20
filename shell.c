@@ -29,10 +29,12 @@ int main(void)
 			{
 				if (args[1] != NULL)
 					status = _atoi(args[1]);
+				else
+					status = 2;
 
 				free(buffer);
 				_free_args(args);
-				_exitt(status);
+				exit(status);
 			}
 			else if (_strcmp(args[0], "env") == 1)
 				_env();
