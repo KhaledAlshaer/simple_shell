@@ -27,10 +27,15 @@ int main(void)
 		{
 			if (_strcmp(args[0], "exit") == 1)
 			{
-				if (args[1] != NULL)
+				if (args[1])
 					status = _atoi(args[1]);
 				else
-					status = 2;
+				{
+					if (!isatty(STDIN_FILENO))
+						status = 2;
+					else if (isatty(STDIN_FILENO))
+						status = 0;
+				}
 
 				free(buffer);
 				_free_args(args);
